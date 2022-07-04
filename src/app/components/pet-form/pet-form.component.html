@@ -1,0 +1,47 @@
+<main class="main">
+  <h1>Please fill the form</h1>
+  <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+    <p>Do you have a pet?</p>
+    <mat-radio-group formControlName="petConfirmed">
+      <mat-radio-button
+        class="checkbox-positive"
+        color="primary"
+        (click)="petConfirmed()"
+        value="yes"
+        >Yes</mat-radio-button
+      >
+      <br />
+      <mat-radio-button
+        class="checkbox-negative"
+        color="primary"
+        value="no"
+        (click)="noPets()"
+        >No</mat-radio-button
+      >
+    </mat-radio-group>
+    <app-form
+      [pets]="pets"
+      (deletePet)="deletePet($event)"
+      *ngFor="let pt of pets"
+    ></app-form>
+    <br />
+    <button
+      mat-raised-button
+      type="button"
+      (click)="addNewPet()"
+      *ngIf="pets.length > 0"
+    >
+      Add Pet
+    </button>
+    <br />
+    <br />
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="mainForm.invalid"
+      color="primary"
+    >
+      Submit
+    </button>
+  </form>
+</main>

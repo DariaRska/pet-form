@@ -1,0 +1,13 @@
+@import '../../shared/styles/mixins';
+@import '../../shared/styles/variables';
+
+
+.header {
+    @include flex-center-column;
+}
+
+.main {
+    @include flex-center-column;
+    @include marginVH(5%, auto);
+
+}

@@ -1,0 +1,41 @@
+<main class="main">
+  <form [formGroup]="petForm" (ngSubmit)="onSubmit()">
+    <button
+      class="delete"
+      *ngIf="pets.length > 1"
+      (click)="delete()"
+      type="button"
+    >
+      X
+    </button>
+    <br />
+    <mat-form-field>
+      <mat-label>Pet's name</mat-label>
+      <input formControlName="petName" type="text" matInput />
+      <mat-error>Field required</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Pet's type</mat-label>
+      <mat-select formControlName="petType">
+        <mat-option *ngFor="let type of petTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Pet's age</mat-label>
+      <input formControlName="petAge" type="number" matInput />
+    </mat-form-field>
+    <br />
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="petForm.invalid"
+    >
+      Confirm
+    </button>
+  </form>
+</main>
