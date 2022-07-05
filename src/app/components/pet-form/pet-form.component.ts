@@ -1,44 +1,51 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { PetFormService } from 'src/app/shared/services/pet-form.service';
 
 @Component({
   selector: 'app-pet-form',
   templateUrl: './pet-form.component.html',
   styleUrls: ['./pet-form.component.scss']
 })
-export class PetFormComponent implements OnInit {
+export class PetFormComponent implements OnInit, OnDestroy {
   mainForm: FormGroup = new FormGroup({});
-  @Output() pets:any[] = [];
+  pets:any[] = [];
+  subscription:Subscription = new Subscription();
 
-  constructor() { }
+  constructor(private petFormService: PetFormService) { }
 
   ngOnInit(): void {
+    this.subscription = this.petFormService.petsArray.subscribe(pets => {
+      this.pets = pets;
+    });
     this.mainForm = new FormGroup({
       'petConfirmed': new FormControl(null, [Validators.required]),
   });
   }
 
   petConfirmed() {
-    if (this.pets.length === 0 ) {
-      this.pets.push('confirmed');
-    }
+      this.petFormService.petConfirmed();
   }
 
   addNewPet() {
-    this.pets.push('pet');
+    this.petFormService.addNewPet();
   }
 
   noPets() {
-    this.pets = [];
+    this.petFormService.noPets();
   }
 
-  deletePet(event:any) {
-    // deletes the last one
-    this.pets.splice(0, this.pets.length - (this.pets.length - 1));
+  deletePet(event:any, pet:number) {
+    this.petFormService.deleteOnePet(pet);
   }
 
   onSubmit() {
     console.log(this.mainForm.value);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
