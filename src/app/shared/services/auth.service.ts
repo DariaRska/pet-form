@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -9,15 +10,21 @@ export class AuthService {
   authChange: Subject<boolean> = new Subject();
   private user:any;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router, 
+    private http: HttpClient) { }
 
   login(authData: any) {
+    
     this.user = {
       email: authData.email,
       userId: '1'
     }
     this.authChange.next(true);
     this.router.navigate(['/form']);
+
+    //RETURN 409 IF USER EXISTS
+    return this.http.post("http://localhost:8080/register", authData);
   }
 
   logout() {

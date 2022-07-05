@@ -9,6 +9,7 @@ import { PetFormComponent } from './components/pet-form/pet-form.component';
 import { RoutingModuleModule } from './routing-module/routing-module.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/pet-form/form/form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormComponent } from './components/pet-form/form/form.component';
     MaterialModule,
     RoutingModuleModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
