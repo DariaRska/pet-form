@@ -1,0 +1,30 @@
+<mat-dialog-content>
+  <h3>Details:</h3>
+  <section class="container dailyIncome mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="petName">
+        <mat-header-cell *matHeaderCellDef>Pet Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.petName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="petType">
+        <mat-header-cell *matHeaderCellDef>Pet Type</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.petType }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="petAge">
+        <mat-header-cell *matHeaderCellDef>Pet Age</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.petAge }}
+        </mat-cell>
+      </ng-container>
+      <!-- define -->
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

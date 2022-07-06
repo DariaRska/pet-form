@@ -1,0 +1,52 @@
+<section *ngIf="!loading" class="tables">
+  <h1 class="title">Approve or disapprove</h1>
+  <section class="container dailyIncome mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.user }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="havePet">
+        <mat-header-cell *matHeaderCellDef
+          >Do employee have a pet?</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">{{ element.anyPets }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="approval">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.pets"
+            type="button"
+            mat-raised-button
+            (click)="openDialog(element.user)"
+          >
+            Show Details
+          </button>
+          <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="approve(element.user)"
+          >
+            Approve
+          </button>
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="reject(element.user)"
+          >
+            Reject
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- define -->
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </section>
+</section>

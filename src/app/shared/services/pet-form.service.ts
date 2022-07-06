@@ -9,8 +9,36 @@ export class PetFormService {
   count:number = 0;
   pets:number[] = [];
   petToDelete:any;
+  petTypesCounter = new Subject<number>();
+
+  addedPetsArray:any[] = [];
 
   petsArray = new Subject<number[]>();
+
+  exampleUsersForms = [
+    {user: 'Max',
+  anyPets: 'no'}, 
+  {user: 'Alex',
+  anyPets: 'yes',
+pets:[ {
+  petName: 'Bob',
+  petType: 'cat',
+  petAge: 2
+},
+{
+  petName: 'Scooby',
+  petType: 'dog',
+  petAge: 4
+}],
+}, 
+  {user: 'Amy',
+  anyPets: 'yes',
+  pets: [{
+    petName: 'Red',
+    petType: 'fox',
+    petAge: 1
+  }],}, 
+  ]
 
   constructor() { }
 

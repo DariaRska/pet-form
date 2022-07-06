@@ -2,7 +2,7 @@
   <form [formGroup]="petForm" (ngSubmit)="onSubmit()">
     <button
       class="delete"
-      *ngIf="pets.length > 1"
+      *ngIf="pets.length > 1 && !petForm.disabled"
       (click)="delete()"
       type="button"
     >
@@ -18,7 +18,11 @@
     <mat-form-field>
       <mat-label>Pet's type</mat-label>
       <mat-select formControlName="petType">
-        <mat-option *ngFor="let type of petTypes" [value]="type">
+        <mat-option
+          *ngFor="let type of petTypes"
+          (click)="countTypes(type)"
+          [value]="type"
+        >
           {{ type }}
         </mat-option>
       </mat-select>
@@ -33,9 +37,9 @@
       mat-raised-button
       type="submit"
       color="primary"
-      [disabled]="petForm.invalid"
+      [disabled]="petForm.invalid || petForm.disabled"
     >
-      Confirm
+      {{ petForm.disabled ? "Confirmed" : "Confirm" }}
     </button>
   </form>
 </main>

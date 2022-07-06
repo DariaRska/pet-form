@@ -17,7 +17,7 @@ export class AuthService {
   login(authData: any) {
     
     this.user = {
-      email: authData.email,
+      username: authData.username,
       userId: '1'
     }
     this.authChange.next(true);
@@ -35,5 +35,11 @@ export class AuthService {
 
   isAuth() {
     return this.user != null;
+  }
+
+  getLoggedUser() {
+    if(this.user) {
+      return this.user.username;
+    }
   }
 }

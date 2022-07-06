@@ -1,0 +1,10 @@
+@import '../../shared/styles/mixins';
+@import '../../shared/styles/variables';
+
+.container {
+    @include marginVH(2%, 2%);
+}
+
+.title {
+    @include flex-center-center;
+}

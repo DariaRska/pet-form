@@ -1,0 +1,6 @@
+@import '../../../shared/styles/mixins';
+@import '../../../shared/styles/variables';
+
+.mat-cell {
+    @include marginVH(2%, 2%);
+}
