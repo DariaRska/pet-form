@@ -26,6 +26,7 @@
           {{ type }}
         </mat-option>
       </mat-select>
+      <mat-error>Field required</mat-error>
     </mat-form-field>
     <br />
     <mat-form-field>
@@ -33,13 +34,13 @@
       <input formControlName="petAge" type="number" matInput />
     </mat-form-field>
     <br />
-    <button
+    <!-- <button
       mat-raised-button
       type="submit"
       color="primary"
       [disabled]="petForm.invalid || petForm.disabled"
     >
       {{ petForm.disabled ? "Confirmed" : "Confirm" }}
-    </button>
+    </button> -->
   </form>
 </main>

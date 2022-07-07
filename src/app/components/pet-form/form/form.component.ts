@@ -11,7 +11,7 @@ export class FormComponent implements OnInit {
   petForm: FormGroup = new FormGroup({});
   @Input() pets:any[] = [];
   @Output() deletePet:EventEmitter<void> = new EventEmitter();
-  petTypesCounter:number = 0;
+  petType:string = '';
 
   petTypes = [
     'cat', 'dog', 'fox'
@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.petForm = new FormGroup({
       'petName': new FormControl(null, [Validators.required]),
-      'petType': new FormControl(null),
+      'petType': new FormControl(null, [Validators.required]),
       'petAge': new FormControl(null),
   });
   }
@@ -33,10 +33,16 @@ export class FormComponent implements OnInit {
   }
 
   countTypes(type:string) {
-    console.log(type);
-    // if (this.petTypesCounter > 0) {
-
-    // }
+    if (this.petType === '') {
+      this.petType = type;
+      this.petFormService.countTypes(true, type);
+    } else {
+      const oldType = this.petType;
+      this.petType = type;
+      this.petFormService.catchOldType(oldType);
+      this.petFormService.countTypes(false, type);
+    }
+      
   }
 
   onSubmit() {
