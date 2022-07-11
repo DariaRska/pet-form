@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -34,7 +35,11 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
 
-  delete() {
+  delete(petType:string) {
+    if(petType) {
+      this.petFormService.catchOldType(petType);
+      this.petFormService.deleteOneType(petType);
+    }
     this.deletePet.emit();
   }
 
@@ -54,8 +59,6 @@ export class FormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.petFormService.addedPetsArray.push(this.petForm.value);
     this.petForm.disable();
-
-    // console.log(this.petForm.value);
   }
 
   ngOnDestroy(): void {

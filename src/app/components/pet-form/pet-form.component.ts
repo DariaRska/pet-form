@@ -49,7 +49,7 @@ export class PetFormComponent implements OnInit, OnDestroy {
     this.petFormService.noPets();
   }
 
-  deletePet(event:any, pet:number) {
+  deletePet(pet:number) {
     this.petFormService.deleteOnePet(pet);
   }
 

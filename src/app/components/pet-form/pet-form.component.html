@@ -21,7 +21,7 @@
     </mat-radio-group>
     <app-form
       [pets]="pets"
-      (deletePet)="deletePet($event, pet)"
+      (deletePet)="deletePet(pet)"
       *ngFor="let pet of pets"
     ></app-form>
     <br />

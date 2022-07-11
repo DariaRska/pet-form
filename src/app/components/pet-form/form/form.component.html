@@ -3,7 +3,7 @@
     <button
       class="delete"
       *ngIf="pets.length > 1 && !petForm.disabled"
-      (click)="delete()"
+      (click)="delete(petForm.value.petType)"
       type="button"
     >
       X

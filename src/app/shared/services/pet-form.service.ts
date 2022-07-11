@@ -81,83 +81,32 @@ export class PetFormService {
   }
 
   countTypes(choosenFirstTime:boolean, type:string) {
-    // console.log('before if');
-    // console.log(this.petTypesCounterArray);
     if (choosenFirstTime) {
-    //   console.log('first');
-    // console.log(this.petTypesCounterArray);
       this.petTypesCounterArray.push(type);
     } else {
       this.petTypesCounterArray.push(type);
-      const oldTypeIndex = this.petTypesCounterArray.findIndex(el => {return el === this.oldPetType});
-      this.petTypesCounterArray = this.petTypesCounterArray.filter((el, index) => {
-        if (index !== oldTypeIndex) {
-          return el
-        }
-        return 
-      })
+      this.deleteOneType(type);
       
     }
-    // console.log('after cutting')
-    //   console.log(this.petTypesCounterArray);
-
-      console.log("FIND THE SAME TYPES")
-      const souldadd = [];
-        this.petTypesCounterArray.forEach((item) => {
-        if (this.typesWithoutDuplicates.length > 0) {
-          
-          for (let i=0; i < this.typesWithoutDuplicates.length; i++) {
-            if(item !== this.typesWithoutDuplicates[i]) {
-              return this.typesWithoutDuplicates.push(item);
-            } 
-          }
-
-
-
-
-        } else {
-          return this.typesWithoutDuplicates.push(item);
-        }
-        return false;
-      })
-      this.petTypesCounter.next(this.typesWithoutDuplicates.length)
-      console.log(this.typesWithoutDuplicates)
+    this.countedTypes();
   }
 
-
-  /*
-{
-    console.log('before if');
-    console.log(this.petTypesCounterArray);
-    if (choosenFirstTime) {
-      if(this.petTypesCounterArray.length > 0) {
-        this.petTypesCounterArray.filter(petTypes => {
-          if(petTypes === type) {
-            console.log('added earlier')
-            console.log(this.petTypesCounterArray);
-          } else {
-            this.petTypesCounterArray.push(type);
-            console.log(this.petTypesCounterArray);
-          }
-        })
-      } else {
-        this.petTypesCounterArray.push(type);
-      console.log('first')
-    console.log(this.petTypesCounterArray);
-      }
-    } else {
-      this.petTypesCounterArray =  this.petTypesCounterArray.filter(petType => {
-        if (petType !== this.oldPetType) {
-          return petType;
-        } 
-        return
+  countedTypes() {
+      this.typesWithoutDuplicates = this.petTypesCounterArray.filter((item, pos) => {
+        return this.petTypesCounterArray.indexOf(item) == pos;
       });
-      console.log('after if');
-      console.log(this.petTypesCounterArray);
-      // this.oldPetType; 
-      this.petTypesCounterArray.push(type);
-      console.log('changed')
-    }
+      this.petTypesCounter.next(this.typesWithoutDuplicates.length);
   }
-  */
+
+  deleteOneType(type:string) {
+    const oldTypeIndex = this.petTypesCounterArray.findIndex(el => {return el === this.oldPetType});
+    this.petTypesCounterArray = this.petTypesCounterArray.filter((el, index) => {
+      if (index !== oldTypeIndex) {
+        return el
+      }
+      return 
+    })
+    this.countedTypes();
+  }
+
 }

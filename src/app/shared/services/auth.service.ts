@@ -23,7 +23,8 @@ export class AuthService {
     this.authChange.next(true);
     this.router.navigate(['/form']);
 
-    return this.http.post("http://localhost:8080/login", authData, {responseType: 'text'});
+    return this.http.post("http://localhost:8080/login", authData);
+    // return this.http.get("http://localhost:8080/login", {headers: authData});
   }
 
   logout() {
