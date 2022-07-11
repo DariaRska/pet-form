@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -44,7 +45,11 @@ export class PetFormService {
   }],}, 
 ]
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getPetTypes() {
+    return this.http.get("http://localhost:8080/list");
+  }
 
   petConfirmed() {
     if (this.pets.length === 0 ) {

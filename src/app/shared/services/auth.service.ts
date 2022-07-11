@@ -23,8 +23,7 @@ export class AuthService {
     this.authChange.next(true);
     this.router.navigate(['/form']);
 
-    //RETURN 409 IF USER EXISTS
-    return this.http.post("http://localhost:8080/register", authData);
+    return this.http.post("http://localhost:8080/login", authData, {responseType: 'text'});
   }
 
   logout() {

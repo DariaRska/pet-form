@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     // JSON string to JSON object
     this.authService.login(JSON.parse(JSON.stringify(this.loginForm.value))).subscribe(resp => {
       console.log(resp);
+      console.log("Success")
     })
   }
 

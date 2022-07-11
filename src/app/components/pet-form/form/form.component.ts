@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { PetFormService } from 'src/app/shared/services/pet-form.service';
 
 @Component({
@@ -7,11 +8,12 @@ import { PetFormService } from 'src/app/shared/services/pet-form.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   petForm: FormGroup = new FormGroup({});
   @Input() pets:any[] = [];
   @Output() deletePet:EventEmitter<void> = new EventEmitter();
   petType:string = '';
+  subscription:Subscription = new Subscription();
 
   petTypes = [
     'cat', 'dog', 'fox'
@@ -25,6 +27,10 @@ export class FormComponent implements OnInit {
       'petType': new FormControl(null, [Validators.required]),
       'petAge': new FormControl(null),
   });
+
+  this.subscription.add(this.petFormService.getPetTypes().subscribe(petTypes => {
+    console.log(petTypes);
+  }));
   }
 
 
@@ -50,6 +56,10 @@ export class FormComponent implements OnInit {
     this.petForm.disable();
 
     // console.log(this.petForm.value);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
