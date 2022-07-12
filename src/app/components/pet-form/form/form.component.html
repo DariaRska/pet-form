@@ -11,7 +11,12 @@
     <br />
     <mat-form-field>
       <mat-label>Pet's name</mat-label>
-      <input formControlName="petName" type="text" matInput />
+      <input
+        formControlName="petName"
+        type="text"
+        matInput
+        (change)="getValidation()"
+      />
       <mat-error>Field required</mat-error>
     </mat-form-field>
     <br />
@@ -31,7 +36,7 @@
     <br />
     <mat-form-field>
       <mat-label>Pet's age</mat-label>
-      <input formControlName="petAge" type="number" matInput />
+      <input formControlName="petAge" type="number" [min]="0" matInput />
     </mat-form-field>
     <br />
     <!-- <button

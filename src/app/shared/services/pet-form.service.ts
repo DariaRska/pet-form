@@ -13,11 +13,13 @@ export class PetFormService {
   petTypesCounter = new Subject<number>();
   petTypesCounterArray:string[] = [];
   oldPetType:string = '';
-  typesWithoutDuplicates:any[] = []
+  typesWithoutDuplicates:any[] = [];
 
   addedPetsArray:any[] = [];
 
   petsArray = new Subject<number[]>();
+
+  validateForm = new Subject<boolean>();
 
   exampleUsersForms = [
     {user: 'Max',

@@ -44,6 +44,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   countTypes(type:string) {
+    this.getValidation();
     if (this.petType === '') {
       this.petType = type;
       this.petFormService.countTypes(true, type);
@@ -54,6 +55,10 @@ export class FormComponent implements OnInit, OnDestroy {
       this.petFormService.countTypes(false, type);
     }
       
+  }
+
+  getValidation() {
+    this.petFormService.validateForm.next(this.petForm.valid);
   }
 
   onSubmit() {
