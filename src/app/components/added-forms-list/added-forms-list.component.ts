@@ -36,7 +36,7 @@ export class AddedFormsListComponent implements OnInit {
     const dialogRef = this.dialog.open(
       FormDetailsComponent, 
       {
-        width: '40%',
+        width: '80%',
         data: user
         })
   }

@@ -4,15 +4,19 @@
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="petName">
         <mat-header-cell *matHeaderCellDef>Pet Name</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.petName }}</mat-cell>
+        <mat-cell *matCellDef="let element" data-label="Pet Name">{{
+          element.petName
+        }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="petType">
         <mat-header-cell *matHeaderCellDef>Pet Type</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.petType }}</mat-cell>
+        <mat-cell *matCellDef="let element" data-label="Pet Type">{{
+          element.petType
+        }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="petAge">
         <mat-header-cell *matHeaderCellDef>Pet Age</mat-header-cell>
-        <mat-cell *matCellDef="let element">
+        <mat-cell *matCellDef="let element" data-label="Pet Age">
           {{ element.petAge }}
         </mat-cell>
       </ng-container>

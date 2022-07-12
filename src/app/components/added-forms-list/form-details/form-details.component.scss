@@ -4,3 +4,7 @@
 .mat-cell {
     @include marginVH(2%, 2%);
 }
+
+@media screen and (max-width: 960px) {
+    @include tableOnMobile;
+  }

@@ -4,13 +4,19 @@
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="user">
         <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.user }}</mat-cell>
+        <mat-cell *matCellDef="let element" data-label="User Name">{{
+          element.user
+        }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="havePet">
         <mat-header-cell *matHeaderCellDef
           >Do employee have a pet?</mat-header-cell
         >
-        <mat-cell *matCellDef="let element">{{ element.anyPets }}</mat-cell>
+        <mat-cell
+          data-label="Do employee have a pet?"
+          *matCellDef="let element"
+          >{{ element.anyPets }}</mat-cell
+        >
       </ng-container>
       <ng-container matColumnDef="approval">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>

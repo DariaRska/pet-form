@@ -8,3 +8,7 @@
 .title {
     @include flex-center-center;
 }
+
+@media screen and (max-width: 960px) {
+    @include tableOnMobile;
+  }

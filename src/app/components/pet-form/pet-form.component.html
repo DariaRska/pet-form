@@ -2,8 +2,6 @@
   <h1>Please fill the form</h1>
   <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
     <p>Do you have a pet?</p>
-    <p>validation {{ servisValidation }}</p>
-    <p *ngIf="mainForm?.get('petConfirmed')?.errors">ERROR</p>
     <mat-radio-group formControlName="petConfirmed">
       <mat-radio-button
         class="checkbox-positive"
