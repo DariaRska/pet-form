@@ -41,29 +41,27 @@ export class PetFormComponent implements OnInit, OnDestroy {
     this.petTypesCounter = number;
   }));
   this.mainForm = new FormGroup({
-    // 'petsForm': new FormGroup({
-      // 'petsF': new FormArray([], [this.customValidation.bind(this)]),
-    // }),
-    'petConfirmed': new FormControl(null, [Validators.required, this.customValidation.bind(this)]),
+    'petConfirmed': new FormControl(null, [Validators.required
+    ]),
   }, 
   );
   
   }
 
-  // private buildListItem(): FormGroup {
-  //   return new FormGroup({});
-  // }
-
   petConfirmed() {
-      this.petFormService.petConfirmed();
+    this.servisValidation = false;
+    this.petFormService.petConfirmed();
   }
 
   addNewPet() {
+    let value = this.servisValidation;
+    this.petFormService.praviousValidateForm = value;
     this.petFormService.validateForm.next(false);
     this.petFormService.addNewPet();
   }
 
   noPets() {
+    this.servisValidation = true;
     this.petFormService.noPets();
   }
 
@@ -83,87 +81,6 @@ export class PetFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  check() {
-    if(this.petForm){
-      if(this.petForm.length > 0) {
-      this.mainForm.controls['petConfirmed'].updateValueAndValidity();
-      }
-    }
-  }
-
-  
-
-  // customValidation(control: FormControl) {
-  customValidation(control: AbstractControl): ValidationErrors | null {
-    if(this.petForm) {
-      if(this.petForm.length > 0) {
-        console.log(!this.servisValidation)
-        return {'isDisabled' : !this.servisValidation}; 
-      }}
-    // console.log("validation")
-    // if(this.petForm) {
-    //   console.log("1stif")
-    //   // if(this.petForm.length > 0) {
-    //     console.log("2ndif")
-    //     this.petForm.toArray().forEach(form => {
-    //       console.log("forEach")
-    //       console.log(this.petForm.get(0)?.getValidation());
-    //       form.getValidation()
-    //       console.log(form.petForm.invalid)
-    //     // return {'isDisabled' : form.petForm.invalid};
-    //     if (form.getValidation() !== undefined){
-    //       console.log("not undefined")
-    //       return {'isDisabled' : !form.getValidation()};
-    //     } else {
-    //       console.log("undefined")
-    //       return {'isDisabled' : true};
-    //     }
-    //   });
-
-        // if(this.petForm){
-    //       console.log(this.petForm.get(0)?.getValidation());
-    //     // }
-    // let arr:any[] = [];
-    //     this.petForm.toArray().forEach(form => {
-    //       console.log(form.petForm.invalid);
-    //       arr.push(form.petForm.valid);
-          
-        //   console.log(form.petForm.valid)
-        // return {'isDisabled' : form.petForm.valid};
-        // });
-        // let isValid:boolean = true;
-        // arr.filter(validation => {
-        //   if (validation === false) {
-        //     isValid = true;
-        //   } else {
-        //     isValid = false;
-          // }
-        // })
-        // return {'isDisabled' : isValid};
-        // if(form.petForm.invalid) {
-        //   return {'isDisabled' : true};
-        // } else {
-        //   return {'isDisabled' : false};
-        // }
-      // });
-      // }
-      // this.petForm.toArray().forEach(form => {
-      //   // this.isDisabled = form.petForm.invalid;
-      //   // return {'isDisabled' : form.petForm.invalid};
-      //   if(form.petForm.invalid) {
-      //     return {'isDisabled' : true};
-      //   } else {
-      //     return {'isDisabled' : false};
-      //   }
-      // });
-  // } 
-  return null;
-}
-
-
-  onTouched(event:any){
-    console.log(event);
-  }
   onSubmit() {
     if (this.petForm) {
       this.petForm.toArray().forEach(form => {

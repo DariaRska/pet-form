@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -15,6 +14,8 @@ export class FormComponent implements OnInit, OnDestroy {
   @Output() deletePet:EventEmitter<void> = new EventEmitter();
   petType:string = '';
   subscription:Subscription = new Subscription();
+
+  previousValidateForm:any;
 
   petTypes = [
     'cat', 'dog', 'fox'
