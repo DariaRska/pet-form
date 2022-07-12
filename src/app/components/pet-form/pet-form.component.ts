@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -17,7 +17,12 @@ export class PetFormComponent implements OnInit, OnDestroy {
   subscription:Subscription = new Subscription();
   petTypesCounter:number = 0;
 
-  @ViewChildren(FormComponent) petForm!:QueryList<PetFormComponent>;
+  isDisabled:boolean = true;
+
+  @ViewChildren(FormComponent) petForm!:QueryList<FormComponent>;
+
+
+  servisValidation:any;
 
   constructor(
     private petFormService: PetFormService,
@@ -26,6 +31,9 @@ export class PetFormComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.subscription.add(this.petFormService.validateForm.subscribe(isValid => {
+      this.servisValidation = isValid;
+    }))
     this.subscription.add(this.petFormService.petsArray.subscribe(pets => {
       this.pets = pets;
     }));
@@ -33,24 +41,44 @@ export class PetFormComponent implements OnInit, OnDestroy {
     this.petTypesCounter = number;
   }));
   this.mainForm = new FormGroup({
-    'petConfirmed': new FormControl(null, [Validators.required]),
-  });
+    'petConfirmed': new FormControl(null, [Validators.required
+    ]),
+  }, 
+  );
+  
   }
 
   petConfirmed() {
-      this.petFormService.petConfirmed();
+    this.servisValidation = false;
+    this.petFormService.petConfirmed();
   }
 
   addNewPet() {
+    let value = this.servisValidation;
+    this.petFormService.praviousValidateForm = value;
+    this.petFormService.validateForm.next(false);
     this.petFormService.addNewPet();
   }
 
   noPets() {
+    this.servisValidation = true;
     this.petFormService.noPets();
   }
 
   deletePet(pet:number) {
     this.petFormService.deleteOnePet(pet);
+  }
+
+  checkValidation() {
+      if(this.petForm.length > 0) {
+        this.petForm.toArray().forEach(form => {
+          console.log(form.petForm.invalid);
+          this.isDisabled = form.petForm.invalid;
+        });
+    } else {
+      console.log(this.mainForm.invalid);
+      this.isDisabled = this.mainForm.invalid;
+    }
   }
 
   onSubmit() {

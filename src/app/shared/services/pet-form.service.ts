@@ -13,11 +13,14 @@ export class PetFormService {
   petTypesCounter = new Subject<number>();
   petTypesCounterArray:string[] = [];
   oldPetType:string = '';
-  typesWithoutDuplicates:any[] = []
+  typesWithoutDuplicates:any[] = [];
 
   addedPetsArray:any[] = [];
 
   petsArray = new Subject<number[]>();
+
+  validateForm = new Subject<boolean>();
+  praviousValidateForm:any;
 
   exampleUsersForms = [
     {user: 'Max',
@@ -70,6 +73,7 @@ export class PetFormService {
   }
 
   deleteOnePet(petNumber:number) {
+    this.validateForm.next(this.praviousValidateForm);
     this.pets = this.pets.filter(pet => {
       return pet !== petNumber;
     });
